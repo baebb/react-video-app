@@ -7,19 +7,37 @@ class SearchBar extends React.Component {
         this.state = {term: ''}
     }
 
+    // render() {
+    //     return (
+    //         <div className="search-bar">
+    //             <input onChange={(input) => this.onInputChange(input.target.value)} />
+    //         </div>
+    //     )
+    // }
+
     render() {
         return (
-            <div>
-                {/*<input onChange={this.onInputChange}/>*/}
-                <input onChange={(event) => this.setState({ term: event.target.value })} />
-                <p>value: {this.state.term}</p>
+            <div className="search-bar">
+                {/*<form className="form-inline" onSubmit={this.handleSubmit}>*/}
+                <form className="form-inline" onSubmit={(event) => this.handleSubmit(event)}>
+                    <input className="form-control"
+                           value={this.state.term}
+                           onChange={(event) => this.onInputChange(event.target.value)}
+                    />
+                    <button type="submit" className="btn btn-primary">Search</button>
+                </form>
             </div>
         )
     }
 
-    onInputChange(event) {
-        console.log(this);
-        this.setState({term: event.target.value});
+    handleSubmit (event) {
+        event.preventDefault();
+        this.props.onSearch(this.state.term);
+    }
+
+    onInputChange(term) {
+        this.setState({term});
+        //this.props.onSearch(term);
     }
 }
 
